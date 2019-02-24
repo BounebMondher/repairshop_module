@@ -68,6 +68,13 @@ class AdminRepairsController extends ModuleAdminController{
                 'orderby' => false,
                 'search' => false,
             ),
+            'device' => array(
+                'title' => $this->l('device'),
+                'width' => 'auto',
+                //'callback' => 'showOrderLink',
+                'orderby' => false,
+                'search' => true,
+            ),
 
             'date_add' => array(
                 'title' => $this->l('Date'),
@@ -94,13 +101,6 @@ class AdminRepairsController extends ModuleAdminController{
                 'callback' => 'getStatutName',
                 'orderby' => false,
                 'search' => false,
-            ),
-            'device' => array(
-                'title' => $this->l('device'),
-                'width' => 'auto',
-                //'callback' => 'showOrderLink',
-                'orderby' => false,
-                'search' => true,
             )
         );
 

@@ -646,5 +646,15 @@ class Repair extends ObjectModel {
         return $data;
     }
 
+    public static function get_client_repairs($id_customer)
+    {
+        return Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS(
+            '
+                SELECT *
+                FROM '._DB_PREFIX_.'repair r
+                WHERE r.id_customer = '.$id_customer
+        );
+    }
+
 
 }

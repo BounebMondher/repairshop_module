@@ -11,6 +11,20 @@
     <!-- nom -->
     <div style="text-align:center; font-size:1.2em; padding-bottom:3em; font-weight:bold;">{$repair_name|escape:'htmlall':'UTF-8'}</div><br />
 
+    <!-- device name -->
+    {if !empty($repair_object->device)}
+        <table cellpadding="3">
+            <tr><td>&nbsp;</td></tr>
+            <tr style="color:#FFFFFF; background-color: #4D4D4D; font-weight:bold;">
+                <th>{l s='Device name' mod='repairshop'}</th>
+            </tr>
+            <tr>
+                <td>{html_entity_decode($repair_object->device|escape:'htmlall':'UTF-8')}</td>{* HTML needed can't escape *}
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+        </table>
+    {/if}
+
     <table id="cart_summary" width="100%" style="text-align:left;" cellpadding="3">
         <thead>
             {assign var='odd' value=0}
