@@ -21,17 +21,16 @@
 
     <section id="wrapper">
         <div class="container" style="min-height:300px!important;">
-
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Device</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">{l s='ID' mod='repairshop'}</th>
+                    <th scope="col">{l s='Name' mod='repairshop'}</th>
+                    <th scope="col">{l s='Customer' mod='repairshop'}</th>
+                    <th scope="col">{l s='Device' mod='repairshop'}</th>
+                    <th scope="col">{l s='Date' mod='repairshop'}</th>
+                    <th scope="col">{l s='Total' mod='repairshop'}</th>
+                    <th scope="col">{l s='Status' mod='repairshop'}</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -45,7 +44,7 @@
                     <td>{$my_repair['date_add']}</td>
                     <td>{$my_repair['total']}</td>
                     <td>{$my_repair['statut']}</td>
-                    <td>View</td>
+                    <td><a href="{$my_repair['view']}" class="btn btn-success">{l s='View' mod='repairshop'}</a></td>
                 </tr>
                 {/foreach}
 
@@ -68,6 +67,7 @@
 {block name='javascript_bottom'}
     {include file="_partials/javascript.tpl" javascript=$javascript.bottom}
 {/block}
+
 
 </body>
 
