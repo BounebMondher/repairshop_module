@@ -9,15 +9,13 @@
  */
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     var icon = $("#subtab-AdminRepairs").children().first().children().first();
-    if(icon.length)
-    {
+    if (icon.length) {
         icon.html("phonelink_setup");
         icon.removeClass('mi-extension');
     }
-    else
-    {
+    else {
         icon = $(".icon-AdminRepairs").first();
         icon.addClass("icon-medkit");
     }

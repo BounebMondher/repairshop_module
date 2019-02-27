@@ -1,3 +1,12 @@
+{**
+ * Module repairshop
+ *
+ * @category Prestashop
+ * @category Module
+ * @author    Mondher Bouneb <bounebmondher@gmail.com>
+ * @copyright Mondher Bouneb
+ * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
+ **}
 <!doctype html>
 <html lang="{$language.iso_code}">
 
@@ -36,16 +45,17 @@
                 </thead>
                 <tbody>
                 {foreach $my_repairs as $my_repair}
-                <tr>
-                    <th scope="row">{$my_repair['id_repair']}</th>
-                    <td>{$my_repair['name']}</td>
-                    <td>{$my_repair['customer']}</td>
-                    <td>{$my_repair['device']}</td>
-                    <td>{$my_repair['date_add']}</td>
-                    <td>{$my_repair['total']}</td>
-                    <td>{$my_repair['statut']}</td>
-                    <td><a href="{$my_repair['view']}" class="btn btn-success">{l s='View' mod='repairshop'}</a></td>
-                </tr>
+                    <tr>
+                        <th scope="row">{$my_repair['id_repair']}</th>
+                        <td>{$my_repair['name']}</td>
+                        <td>{$my_repair['customer']}</td>
+                        <td>{$my_repair['device']}</td>
+                        <td>{$my_repair['date_add']}</td>
+                        <td>{$my_repair['total']}</td>
+                        <td>{$my_repair['statut']}</td>
+                        <td><a href="{$my_repair['view']}" class="btn btn-success">{l s='View' mod='repairshop'}</a>
+                        </td>
+                    </tr>
                 {/foreach}
 
                 </tbody>

@@ -7,7 +7,7 @@
  */
 
 $sql = array();
-$sql[] = 'CREATE TABLE IF NOT EXISTS `'._DB_PREFIX_.'repair` (
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'repair` (
 		  `id_repair` int(10) NOT NULL AUTO_INCREMENT,
 		  `id_cart` int(10) NOT NULL,
 		  `id_customer` int(10) NOT NULL,
@@ -22,5 +22,5 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `'._DB_PREFIX_.'repair` (
 		  `date_repaired` DATETIME NULL,
 		  `date_returned` DATETIME NULL,
   		PRIMARY KEY (`id_repair`)
-		) ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8';
-$sql[] = 'ALTER TABLE `'._DB_PREFIX_.'repair` AUTO_INCREMENT=100001';
+		) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8';
+$sql[] = 'ALTER TABLE `' . _DB_PREFIX_ . 'repair` AUTO_INCREMENT=100001';

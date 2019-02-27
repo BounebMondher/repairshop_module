@@ -9,5 +9,5 @@
  */
 $sql = array();
 $sql[] = 'SET foreign_key_checks = 0;';
-$sql[] = 'DROP TABLE IF EXISTS `'._DB_PREFIX_.'repair`;';
+$sql[] = 'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'repair`;';
 $sql[] = 'SET foreign_key_checks = 1;';

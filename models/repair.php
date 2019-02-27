@@ -1,19 +1,19 @@
 <?php
 /**
-* Module repairshop
-*
+ * Module repairshop
+ *
  * @category Prestashop
-* @category Module
-* @author    Mondher Bouneb <bounebmondher@gmail.com>
+ * @category Module
+ * @author    Mondher Bouneb <bounebmondher@gmail.com>
  * @copyright Mondher Bouneb
-* @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
+ * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
  */
 
-require_once _PS_MODULE_DIR_.'repairshop/HTMLTemplateRepairPdf.php';
+require_once _PS_MODULE_DIR_ . 'repairshop/HTMLTemplateRepairPdf.php';
 
 
-
-class Repair extends ObjectModel {
+class Repair extends ObjectModel
+{
     /* @var string Name */
 
     public $id_repair;
@@ -84,7 +84,8 @@ class Repair extends ObjectModel {
         $message = '',
         $duplicate_cart = true
 
-    ) {
+    )
+    {
         if ($duplicate_cart == true) {
             $duplicate = $cart->duplicate();
             $id_cart = $duplicate['cart']->id;
@@ -101,15 +102,15 @@ class Repair extends ObjectModel {
         $customs = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS(
             '
                 SELECT *
-                FROM '._DB_PREFIX_.'customization c
-                LEFT JOIN '._DB_PREFIX_.'customized_data cd ON cd.id_customization = c.id_customization
-                WHERE c.id_cart = '.(int)$new_cart->id
+                FROM ' . _DB_PREFIX_ . 'customization c
+                LEFT JOIN ' . _DB_PREFIX_ . 'customized_data cd ON cd.id_customization = c.id_customization
+                WHERE c.id_cart = ' . (int)$new_cart->id
         );
 
         foreach ($customs as $custom) {
             $prod_array = $new_cart->getProducts($custom['id_product']);
-            $sql = 'UPDATE '._DB_PREFIX_.'customization SET id_address_delivery='.(int)$prod_array[0]['id_address_delivery'].
-                ' WHERE id_customization='.(int)$custom['id_customization'];
+            $sql = 'UPDATE ' . _DB_PREFIX_ . 'customization SET id_address_delivery=' . (int)$prod_array[0]['id_address_delivery'] .
+                ' WHERE id_customization=' . (int)$custom['id_customization'];
 
             db::getInstance()->execute($sql);
         }
@@ -125,7 +126,7 @@ class Repair extends ObjectModel {
         $new_repair->statut = $statut;
 
         if ($repair_name == null) {
-            $repair_name = $new_repair->l('Repair').' '.$date_time;
+            $repair_name = $new_repair->l('Repair') . ' ' . $date_time;
         }
 
         $new_repair->name = $repair_name;
@@ -134,7 +135,6 @@ class Repair extends ObjectModel {
         $new_repair->id_customer = (int)$customer->id;
         $new_repair->date_add = $date_time;
         $new_repair->message = $message;
-
 
 
         $new_repair->save();
@@ -170,7 +170,7 @@ class Repair extends ObjectModel {
             }
             else*/
             //do not delete custom product here
-            if (!count($customizations)>0) {
+            if (!count($customizations) > 0) {
                 $cart->deleteProduct($prod['id_product'], $prod['id_product_attribute']);
             }
         }
@@ -201,19 +201,19 @@ class Repair extends ObjectModel {
                 /* customization */
                 if (isset($add_customization_list[$random_id])) {
                     //get old qty
-                    $oldCustoms=$cart->getProductCustomization($prod_id);
-                    $list_prod[$random_id]['qty']=0;
+                    $oldCustoms = $cart->getProductCustomization($prod_id);
+                    $list_prod[$random_id]['qty'] = 0;
                     foreach ($add_customization_list[$random_id] as $id_customization => $qtyArray) {
                         foreach ($oldCustoms as $oldCustom) {
-                            if ($oldCustom['id_customization']==$id_customization) {
+                            if ($oldCustom['id_customization'] == $id_customization) {
                                 $oldQty = $oldCustom['quantity'];
                             }
                         }
                         //$qtyToAdd = $qtyArray['newQty'] - $qtyArray['oldQty'];
                         $qtyToAdd = $qtyArray['newQty'] - $oldQty;
-                        $list_prod[$random_id]['id_customization'][$id_customization]['operator'] = ($qtyToAdd>0)?'up':'down';
+                        $list_prod[$random_id]['id_customization'][$id_customization]['operator'] = ($qtyToAdd > 0) ? 'up' : 'down';
                         $list_prod[$random_id]['id_customization'][$id_customization]['qty'] = abs($qtyToAdd);
-                        $list_prod[$random_id]['qty']+=$qtyArray['newQty'];
+                        $list_prod[$random_id]['qty'] += $qtyArray['newQty'];
                     }
                 }
 
@@ -235,14 +235,14 @@ class Repair extends ObjectModel {
         if (!empty($list_prod)) {
             foreach ($list_prod as $prod) {
                 if (isset($prod['id_attribute']) && isset($prod['id_customization'])) {
-                    foreach ($prod['id_customization'] as $id_customization=>$customization_array) {
-                        if ($customization_array['qty']!=0) {
+                    foreach ($prod['id_customization'] as $id_customization => $customization_array) {
+                        if ($customization_array['qty'] != 0) {
                             $cart->updateQty($customization_array['qty'], $prod['id'], $prod['id_attribute'], $id_customization, $customization_array['operator']);
                         }
                     }
-                } elseif (isset($prod['id_customization'])>0) {
-                    foreach ($prod['id_customization'] as $id_customization=>$qty_customization) {
-                        if ($customization_array['qty']!=0) {
+                } elseif (isset($prod['id_customization']) > 0) {
+                    foreach ($prod['id_customization'] as $id_customization => $qty_customization) {
+                        if ($customization_array['qty'] != 0) {
                             $cart->updateQty($customization_array['qty'], $prod['id'], $prod['id_attribute'], $id_customization, $customization_array['operator']);
                         }
                     }
@@ -269,7 +269,7 @@ class Repair extends ObjectModel {
             }
         }
 
-        $cart->setDeliveryOption(array($cart->id_address_delivery => (int)$cart->id_carrier.','));
+        $cart->setDeliveryOption(array($cart->id_address_delivery => (int)$cart->id_carrier . ','));
         $cart->update();
 
         /** add specific price into table * */
@@ -282,7 +282,7 @@ class Repair extends ObjectModel {
     {
         if (!empty($list_prod)) {
             foreach ($list_prod as $prod) {
-                if (isset($prod['specific_price']) && $prod['specific_price'] != '' && $cart->id!=0) {
+                if (isset($prod['specific_price']) && $prod['specific_price'] != '' && $cart->id != 0) {
                     SpecificPrice::deleteByIdCart($cart->id, $prod['id'], $prod['id_attribute']);
                     $specific_price = new SpecificPrice();
                     $specific_price->id_cart = (int)$cart->id;
@@ -309,16 +309,16 @@ class Repair extends ObjectModel {
 
     public static function deleteSpecificPrice($id_cart, $id_product = null, $id_attribute = null)
     {
-        $id_attribute = ($id_attribute == null)?0:$id_attribute;
+        $id_attribute = ($id_attribute == null) ? 0 : $id_attribute;
 
         if (!isset($id_cart) || $id_cart == 0) {
             return false;
         }
 
         if ($id_product == null) {
-            $sql = 'DELETE FROM `'._DB_PREFIX_.'specific_price` WHERE `id_cart` = '.(int)$id_cart;
+            $sql = 'DELETE FROM `' . _DB_PREFIX_ . 'specific_price` WHERE `id_cart` = ' . (int)$id_cart;
         } else {
-            $sql ='DELETE FROM `'._DB_PREFIX_.'specific_price` WHERE `id_cart` = '.(int)$id_cart.' AND id_product='.(int)$id_product.' AND id_attribute='.(int)$id_attribute;
+            $sql = 'DELETE FROM `' . _DB_PREFIX_ . 'specific_price` WHERE `id_cart` = ' . (int)$id_cart . ' AND id_product=' . (int)$id_product . ' AND id_attribute=' . (int)$id_attribute;
         }
         Db::getInstance()->execute($sql);
     }
@@ -328,13 +328,13 @@ class Repair extends ObjectModel {
         $data = $this->getDataArray($context);
 
         $customer_obj = new Customer($this->id_customer);
-        $filename = $this->l('repair_').$this->id.'.pdf';
+        $filename = $this->l('repair_') . $this->id . '.pdf';
         $file_attachement = array();
 
 
-            $file_attachement['content'] = $this->renderPDf($context->smarty, false);
-            $file_attachement['name'] = $filename;
-            $file_attachement['mime'] = 'application/pdf';
+        $file_attachement['content'] = $this->renderPDf($context->smarty, false);
+        $file_attachement['name'] = $filename;
+        $file_attachement['mime'] = 'application/pdf';
 
         //send mail to customer
         if (Mail::Send(
@@ -343,15 +343,16 @@ class Repair extends ObjectModel {
             $this->l('Your repair'),
             $data,
             $customer_obj->email,
-            $customer_obj->firstname.' '.$customer_obj->lastname,
+            $customer_obj->firstname . ' ' . $customer_obj->lastname,
             null,
             null,
             $file_attachement,
             null,
-            _PS_MODULE_DIR_.'repairshop/mails/',
+            _PS_MODULE_DIR_ . 'repairshop/mails/',
             false,
             (int)$context->shop->id
-        )) {
+        )
+        ) {
             return true;
         } else {
             return false;
@@ -387,7 +388,7 @@ class Repair extends ObjectModel {
         $tax_details = array();
         $cart_rules = $cart_obj->getCartRules();
 
-        if (isset($cart_rules) && count($cart_rules)>0) {
+        if (isset($cart_rules) && count($cart_rules) > 0) {
             foreach ($cart_rules as $cart_rule) {
                 $tax_details['discount']['total_ttc'] =
                     (!isset($tax_details['discount']['total_ttc']) ? 0 : $tax_details['discount']['total_ttc']) + $cart_rule['value_real'];
@@ -411,11 +412,11 @@ class Repair extends ObjectModel {
             $tax_details[$rate]['total_ht'] =
                 (!isset($tax_details[$rate]['total_ht']) ? 0 : $tax_details[$rate]['total_ht']) + $product['total'];
 
-            if ($product['ecotax']!=0) {
+            if ($product['ecotax'] != 0) {
                 $tax_details['ecotax']['total_tax'] += $product['ecotax'] * $product['quantity'];
             }
 
-            $tax_details['ecotax']['name']=$this->l('Ecotax');
+            $tax_details['ecotax']['name'] = $this->l('Ecotax');
             $tax_details[$rate]['name'] = $product['tax_name'];
         }
 
@@ -492,10 +493,10 @@ class Repair extends ObjectModel {
             $product['image'] = $this->setProductImageInformations($product['id_product'], $product['id_product_attribute']);
 
             if (is_object($product['image'])) {
-                $img_src = _PS_IMG_DIR_.'p/'.$product['image']->getImgPath().'.jpg';
+                $img_src = _PS_IMG_DIR_ . 'p/' . $product['image']->getImgPath() . '.jpg';
                 if (file_exists($img_src)) {
                     $imgSizes = $this->getFinalImgSize($img_src);
-                    $product['image_tag'] = '<img src="'.$img_src.'" alt="" width="'.$imgSizes[0].'px" height="'.$imgSizes[1].'px"/>';
+                    $product['image_tag'] = '<img src="' . $img_src . '" alt="" width="' . $imgSizes[0] . 'px" height="' . $imgSizes[1] . 'px"/>';
                 } else {
                     $product['image_tag'] = '';
                 }
@@ -507,9 +508,9 @@ class Repair extends ObjectModel {
         foreach ($summary['gift_products'] as $key => &$gift_product) {
             $gift_product['image'] = $this->setProductImageInformations($gift_product['id_product'], $gift_product['id_product_attribute']);
             if (is_object($gift_product['image'])) {
-                $img_src = _PS_IMG_DIR_.'p/'.$gift_product['image']->getImgPath().'.jpg';
+                $img_src = _PS_IMG_DIR_ . 'p/' . $gift_product['image']->getImgPath() . '.jpg';
                 $imgSizes = $this->getFinalImgSize($img_src);
-                $gift_product['image_tag'] = '<img src="'.$img_src.'" alt=""  width="'.$imgSizes[0].'px" height="'.$imgSizes[1].'px" />';
+                $gift_product['image_tag'] = '<img src="' . $img_src . '" alt=""  width="' . $imgSizes[0] . 'px" height="' . $imgSizes[1] . 'px" />';
             } else {
                 $gift_product['image_tag'] = '';
             }
@@ -544,7 +545,7 @@ class Repair extends ObjectModel {
         $show_option_allow_separate_package = (!$cart_obj->isAllProductsInStock(true) && Configuration::get('PS_SHIP_WHEN_AVAILABLE'));
         //fix for ps 1.5.2.0 and minor
         $configSize = Configuration::get('REPAIRSHOP_IMAGESIZE');
-        $smallSize = (method_exists('ImageType', 'getFormatedName'))?Image::getSize(ImageType::getFormatedName('small')):Image::getSize($configSize);
+        $smallSize = (method_exists('ImageType', 'getFormatedName')) ? Image::getSize(ImageType::getFormatedName('small')) : Image::getSize($configSize);
 
 
         $context->smarty->assign($summary);
@@ -575,18 +576,18 @@ class Repair extends ObjectModel {
         if (isset($product_attribute_id) && $product_attribute_id) {
             $id_image = Db::getInstance()->getValue('
                 SELECT image_shop.id_image
-                FROM '._DB_PREFIX_.'product_attribute_image pai'.
-                Shop::addSqlAssociation('image', 'pai', true).'
-                WHERE id_product_attribute = '.(int)$product_attribute_id
+                FROM ' . _DB_PREFIX_ . 'product_attribute_image pai' .
+                Shop::addSqlAssociation('image', 'pai', true) . '
+                WHERE id_product_attribute = ' . (int)$product_attribute_id
             );
         }
 
         if (!isset($id_image) || !$id_image) {
             $id_image = Db::getInstance()->getValue('
                 SELECT image_shop.id_image
-                FROM '._DB_PREFIX_.'image i'.
-                Shop::addSqlAssociation('image', 'i', true, 'image_shop.cover=1').'
-                WHERE i.id_product = '.(int)($product_id)
+                FROM ' . _DB_PREFIX_ . 'image i' .
+                Shop::addSqlAssociation('image', 'i', true, 'image_shop.cover=1') . '
+                WHERE i.id_product = ' . (int)($product_id)
             );
         }
 
@@ -616,7 +617,7 @@ class Repair extends ObjectModel {
             $final_height = round($src_height * $max_width / $src_width);
         }
 
-        return array($final_width,$final_height);
+        return array($final_width, $final_height);
     }
 
     public static function l($string)
@@ -629,15 +630,15 @@ class Repair extends ObjectModel {
         $customer_obj = new Customer($this->id_customer);
 
 
-            $customer_message = '';
-        
+        $customer_message = '';
+
 
         $data = array(
             '{firstname}' => $customer_obj->firstname,
             '{lastname}' => $customer_obj->lastname,
             '{customerMail}' => $customer_obj->email,
             '{shopName}' => Configuration::get('PS_SHOP_NAME'),
-            '{shopUrl}' => $context->shop->domain.$context->shop->physical_uri,
+            '{shopUrl}' => $context->shop->domain . $context->shop->physical_uri,
             '{shopMail}' => Configuration::get('PS_SHOP_EMAIL'),
             '{shopTel}' => Configuration::get('PS_SHOP_PHONE'),
             '{customerMessage}' => nl2br($customer_message)
@@ -651,8 +652,8 @@ class Repair extends ObjectModel {
         return Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS(
             '
                 SELECT *
-                FROM '._DB_PREFIX_.'repair r
-                WHERE r.id_customer = '.$id_customer
+                FROM ' . _DB_PREFIX_ . 'repair r
+                WHERE r.id_customer = ' . $id_customer
         );
     }
 

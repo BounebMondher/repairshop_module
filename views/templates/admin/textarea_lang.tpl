@@ -24,45 +24,51 @@
 *}
 
 {foreach from=$languages item=language}
-	{if $languages|count > 1}
-		<div class="translatable-field row lang-{$language.id_lang|escape:'htmlall':'UTF-8'}">
-			<div class="col-lg-9">
-	{/if}
-	{if isset($maxchar) && $maxchar}
-				<div class="input-group">
-					<span id="{if isset($input_id)}{$input_id|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}{else}{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}{/if}_counter" class="input-group-addon">
+    {if $languages|count > 1}
+        <div class="translatable-field row lang-{$language.id_lang|escape:'htmlall':'UTF-8'}">
+        <div class="col-lg-9">
+    {/if}
+{if isset($maxchar) && $maxchar}
+    <div class="input-group">
+    <span id="{if isset($input_id)}{$input_id|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}{else}{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}{/if}_counter"
+          class="input-group-addon">
 						<span class="text-count-down">{$maxchar|escape:'htmlall':'UTF-8'}</span>
 					</span>
-	{/if}
-					<textarea id="{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}" name="{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}" class="{if isset($class)}{$class|escape:'htmlall':'UTF-8'}{else}textarea-autosize{/if}"{if isset($maxlength) && $maxlength} maxlength="{$maxlength|escape:'htmlall':'UTF-8'}"{/if}{if isset($maxchar) && $maxchar} data-maxchar="{$maxchar|escape:'htmlall':'UTF-8'}"{/if}>{if isset($input_value[$language.id_lang])}{$input_value[$language.id_lang]|escape:'htmlall':'UTF-8'}{/if}</textarea>
-					<span class="counter" data-max="{if isset($max)}{$max|intval}{/if}{if isset($maxlength)}{$maxlength|intval}{/if}{if !isset($max) && !isset($maxlength)}none{/if}"></span>
-			{if isset($maxchar) && $maxchar}
-				</div>
-			{/if}
-	{if $languages|count > 1}
-			</div>
-			<div class="col-lg-2">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					{$language.iso_code|escape:'htmlall':'UTF-8'}
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					{foreach from=$languages item=language}
-					<li><a href="javascript:tabs_manager.allow_hide_other_languages = false;hideOtherLanguage({$language.id_lang|escape:'htmlall':'UTF-8'});">{$language.name|escape:'htmlall':'UTF-8'}</a></li>
-					{/foreach}
-				</ul>
-			</div>
-		</div>
-	{/if}
+{/if}
+    <textarea id="{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}"
+              name="{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}"
+              class="{if isset($class)}{$class|escape:'htmlall':'UTF-8'}{else}textarea-autosize{/if}"{if isset($maxlength) && $maxlength} maxlength="{$maxlength|escape:'htmlall':'UTF-8'}"{/if}{if isset($maxchar) && $maxchar} data-maxchar="{$maxchar|escape:'htmlall':'UTF-8'}"{/if}>{if isset($input_value[$language.id_lang])}{$input_value[$language.id_lang]|escape:'htmlall':'UTF-8'}{/if}</textarea>
+    <span class="counter"
+          data-max="{if isset($max)}{$max|intval}{/if}{if isset($maxlength)}{$maxlength|intval}{/if}{if !isset($max) && !isset($maxlength)}none{/if}"></span>
+{if isset($maxchar) && $maxchar}
+    </div>
+{/if}
+    {if $languages|count > 1}
+        </div>
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {$language.iso_code|escape:'htmlall':'UTF-8'}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                {foreach from=$languages item=language}
+                    <li>
+                        <a href="javascript:tabs_manager.allow_hide_other_languages = false;hideOtherLanguage({$language.id_lang|escape:'htmlall':'UTF-8'});">{$language.name|escape:'htmlall':'UTF-8'}</a>
+                    </li>
+                {/foreach}
+            </ul>
+        </div>
+        </div>
+    {/if}
 {/foreach}
 <script type="text/javascript">
-	{if isset($maxchar) && $maxchar}
-		$(document).ready(function(){
-		{foreach from=$languages item=language}
-			countDown($("#{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}"), $("#{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}_counter"));
-		{/foreach}
-		});
-	{/if}
-	$(".textarea-autosize").autosize();
+    {if isset($maxchar) && $maxchar}
+    $(document).ready(function () {
+        {foreach from=$languages item=language}
+        countDown($("#{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}"), $("#{$input_name|escape:'htmlall':'UTF-8'}_{$language.id_lang|escape:'htmlall':'UTF-8'}_counter"));
+        {/foreach}
+    });
+    {/if}
+    $(".textarea-autosize").autosize();
 </script>
 

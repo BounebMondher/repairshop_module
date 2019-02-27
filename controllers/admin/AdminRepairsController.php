@@ -11,12 +11,13 @@
 
 require_once _PS_MODULE_DIR_ . 'repairshop/models/repair.php';
 
-class AdminRepairsController extends ModuleAdminController{
+class AdminRepairsController extends ModuleAdminController
+{
 
     public function __construct()
     {
 
-        $this->ps_versions= array('min' => '1.7.1.0', 'max' => _PS_VERSION_);
+        $this->ps_versions = array('min' => '1.7.1.0', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
         $this->table = 'repair';
         $this->name = 'repairshop';
@@ -48,7 +49,7 @@ class AdminRepairsController extends ModuleAdminController{
             'ps_base_url' => _PS_BASE_URL_SSL_
         ));
 
-        if (!(int) Configuration::get('PS_SHOP_ENABLE')) {
+        if (!(int)Configuration::get('PS_SHOP_ENABLE')) {
             $this->errors[] = ($this->l('Your shop is not enable: Carrier and customer list will not be loaded'));
         }
 
@@ -204,7 +205,7 @@ class AdminRepairsController extends ModuleAdminController{
             'flag' => false,
             'view_flag' => _MODULE_DIR_,
             'dir_flag' => Tools::getValue('id_repair'),
-            'pathuploadfiles' => _PS_MODULE_DIR_ . 'repairshop/uploadfiles/'.Tools::getValue('id_repair'),
+            'pathuploadfiles' => _PS_MODULE_DIR_ . 'repairshop/uploadfiles/' . Tools::getValue('id_repair'),
             'cart_rules' => $this->getAllCartRules(),
             'id_lang_default' => $this->context->language->id,
             'repairshop_module_dir' => _MODULE_DIR_ . $this->name,
@@ -246,7 +247,7 @@ class AdminRepairsController extends ModuleAdminController{
         $this->initToolbar();
         $lists = parent::renderList();
         //parent::initToolbar();
-        $html=$this->context->smarty->fetch(_PS_MODULE_DIR_ . '/repairshop/views/templates/admin/header.tpl');
+        $html = $this->context->smarty->fetch(_PS_MODULE_DIR_ . '/repairshop/views/templates/admin/header.tpl');
         $html .= $lists;
         $html .= $this->context->smarty->fetch(_PS_MODULE_DIR_ . '/repairshop/views/templates/admin/help.tpl');
 
@@ -296,8 +297,8 @@ class AdminRepairsController extends ModuleAdminController{
     {
         if ($val != 0) {
             $token = Tools::getAdminToken('AdminOrders' .
-                (int) Tab::getIdFromClassName('AdminOrders') .
-                (int) $this->context->cookie->id_employee);
+                (int)Tab::getIdFromClassName('AdminOrders') .
+                (int)$this->context->cookie->id_employee);
             $href = 'index.php?controller=AdminOrders&id_order=' . $val . '&vieworder&token=' . $token;
             return '<a href="' . $href . '">' . $val . '</a>';
         } else {
@@ -307,8 +308,8 @@ class AdminRepairsController extends ModuleAdminController{
 
     public function getYourPrice($id_cart, $id_product, $id_product_attribute, $id_customer, $get_row = false)
     {
-        $sql = 'SELECT price,from_quantity FROM ' . _DB_PREFIX_ . 'specific_price WHERE id_cart=' . (int) $id_cart
-            . ' AND id_product=' . (int)$id_product . ' AND id_product_attribute=' . (int) $id_product_attribute.' AND id_customer=' . (int) $id_customer;
+        $sql = 'SELECT price,from_quantity FROM ' . _DB_PREFIX_ . 'specific_price WHERE id_cart=' . (int)$id_cart
+            . ' AND id_product=' . (int)$id_product . ' AND id_product_attribute=' . (int)$id_product_attribute . ' AND id_customer=' . (int)$id_customer;
         $row = db::getInstance()->getRow($sql);
         if ($get_row) {
             return $row;
@@ -322,7 +323,7 @@ class AdminRepairsController extends ModuleAdminController{
         if (!array_key_exists('viewcustomer', self::$cache_lang)) {
             self::$cache_lang['viewcustomer'] = $this->l('View customer');
         }
-        $token = Tools::getAdminToken('AdminCustomers' . (int) Tab::getIdFromClassName('AdminCustomers') . (int) $this->context->cookie->id_employee);
+        $token = Tools::getAdminToken('AdminCustomers' . (int)Tab::getIdFromClassName('AdminCustomers') . (int)$this->context->cookie->id_employee);
 
         $new_repair = new Repair($id);
         $this->context->smarty->assign(array(
@@ -338,7 +339,7 @@ class AdminRepairsController extends ModuleAdminController{
         if (!array_key_exists('createorder', self::$cache_lang)) {
             self::$cache_lang['createorder'] = $this->l('Create order');
         }
-        $token = Tools::getAdminToken('AdminOrders' . (int) Tab::getIdFromClassName('AdminOrders') . (int) $this->context->cookie->id_employee);
+        $token = Tools::getAdminToken('AdminOrders' . (int)Tab::getIdFromClassName('AdminOrders') . (int)$this->context->cookie->id_employee);
 
         $new_repair = new Repair($id);
         $this->context->smarty->assign(array(
@@ -397,33 +398,33 @@ class AdminRepairsController extends ModuleAdminController{
         if (Tools::getIsset('ajax_product_list')) {
             $query = Tools::getValue('q', false);
             $context = Context::getContext();
-            $id_customer = Tools::getIsset('id_customer')?Tools::getValue('id_customer'):null;
+            $id_customer = Tools::getIsset('id_customer') ? Tools::getValue('id_customer') : null;
             //$id_cart = Tools::getIsset('id_cart')?Tools::getValue('id_cart'):null;
             //echo "id customer = ".$id_customer;
             $sql = 'SELECT p.`id_product`, pl.`link_rewrite`, p.`reference`, p.`price`, pl.`name`
                 FROM `' . _DB_PREFIX_ . 'product` p
-                LEFT JOIN `' . _DB_PREFIX_ . 'product_lang` pl ON (pl.id_product = p.id_product AND pl.id_lang = ' . (int) Context::getContext()->language->id . ')
+                LEFT JOIN `' . _DB_PREFIX_ . 'product_lang` pl ON (pl.id_product = p.id_product AND pl.id_lang = ' . (int)Context::getContext()->language->id . ')
                 WHERE (pl.name LIKE \'%' . pSQL($query) . '%\' OR p.reference LIKE \'%' . pSQL($query) . '%\') GROUP BY p.id_product';
 
             $prod_list = Db::getInstance()->executeS($sql);
 
             $context = Context::getContext();
             foreach ($prod_list as $prod) {
-                $prod['name']=$prod['name'].' ['.$prod['reference'].']';
+                $prod['name'] = $prod['name'] . ' [' . $prod['reference'] . ']';
                 //$price = Product::getPriceStatic($prod['id_product'], false, null, 6, null, false, true, 1, false, $id_customer, null, null, $specific_price_output, true, true, $context, true);
 
                 $price = Product::getPriceStatic($prod['id_product'], false, null, 4, null, false, true, 1, false, null, null, null, $specific_price_output, false, true, null, false);
 
                 $reduced_price = Product::getPriceStatic($prod['id_product'], false, null, 4, null, false, true, 1, false, $id_customer, null, 0, $specific_price_output, false, true, $context, true);
 
-                echo trim($prod['id_product']) . '|' . trim($prod['name']) . '|' . trim($price) . '|' .trim($reduced_price). "\n";
+                echo trim($prod['id_product']) . '|' . trim($prod['name']) . '|' . trim($price) . '|' . trim($reduced_price) . "\n";
             }
             die();
         }
 
         if (Tools::getIsset('ajax_load_cart_rule')) {
             /* add cart to context */
-            $id_cart = (int) Tools::getValue('idCart');
+            $id_cart = (int)Tools::getValue('idCart');
             $cart = Repair::createCart($id_cart);
             $cart->getProducts();
 
@@ -459,7 +460,7 @@ class AdminRepairsController extends ModuleAdminController{
         }
 
         if (Tools::getIsset('ajax_get_total_cart')) {
-            $id_cart = (int) Tools::getValue('idCart');
+            $id_cart = (int)Tools::getValue('idCart');
             $cart = Repair::createCart($id_cart);
 
             $summary = $cart->getSummaryDetails(null, true);
@@ -468,7 +469,7 @@ class AdminRepairsController extends ModuleAdminController{
             $customer = New Customer($cart->id_customer);
 
             if (function_exists('getPriceDisplayMethod')) {
-                $summary["group_tax_method"] = (bool) Group::getPriceDisplayMethod($customer->id_default_group);
+                $summary["group_tax_method"] = (bool)Group::getPriceDisplayMethod($customer->id_default_group);
             }
 
 
@@ -477,9 +478,9 @@ class AdminRepairsController extends ModuleAdminController{
         }
 
         if (Tools::getIsset('ajax_delete_upload_file')) {
-            $dossier = _PS_MODULE_DIR_ . 'repairshop/uploadfiles/'.Tools::getValue('upload_id');
+            $dossier = _PS_MODULE_DIR_ . 'repairshop/uploadfiles/' . Tools::getValue('upload_id');
             $file = Tools::getValue('upload_name');
-            unlink($dossier.'/'.$file);
+            unlink($dossier . '/' . $file);
             die();
         }
 
@@ -498,8 +499,8 @@ class AdminRepairsController extends ModuleAdminController{
             $sql = 'SELECT  a.`alias`, a.`id_address`, a.`lastname`, a.`firstname`, a.`lastname`, a.`company`,
                 a.`address1`, a.`address2`, a.`postcode`, a.`city`,cl.`name` as `country_name`
                 FROM `' . _DB_PREFIX_ . 'address` a
-                LEFT JOIN `' . _DB_PREFIX_ . 'country_lang` cl ON (a.`id_country`=cl.`id_country` AND cl.id_lang = ' . (int) $context->language->id . ')
-                WHERE a.id_customer=' . (int) $id_customer;
+                LEFT JOIN `' . _DB_PREFIX_ . 'country_lang` cl ON (a.`id_country`=cl.`id_country` AND cl.id_lang = ' . (int)$context->language->id . ')
+                WHERE a.id_customer=' . (int)$id_customer;
 
             $result = array();
             $address_list = Db::getInstance()->executeS($sql);
@@ -528,13 +529,13 @@ class AdminRepairsController extends ModuleAdminController{
                 die();
             }
 
-            $id_cart = (int) Tools::getValue('idCart');
+            $id_cart = (int)Tools::getValue('idCart');
             $result = array();
-            $i=0;
+            $i = 0;
 
             foreach ($who_is_list as $key => $value) {
                 $id_prod = $value;
-                $id_attribute = (isset($attribute_list[$key]))?$attribute_list[$key]:0;
+                $id_attribute = (isset($attribute_list[$key])) ? $attribute_list[$key] : 0;
                 $qty = $qty_list[$key];
 
                 $price = Product::getPriceStatic($id_prod, false, $id_attribute, 2, null, false, true, 1, false, null, null, null, $specific_price_output, false, false, null, false);
@@ -542,9 +543,9 @@ class AdminRepairsController extends ModuleAdminController{
                 $reduced_price = Product::getPriceStatic($id_prod, false, $id_attribute, 2, null, false, true, $qty, false, $id_customer, null, 0, $specific_price_output, false, true, $context, true);
                 //$your_price = ($specific_price_list[$key]!='')?$specific_price_list[$key]:Product::getPriceStatic($id_prod, false, $id_attribute, 2, null, false, true, $qty, false, $id_customer, $id_cart, null, $specific_price_output, true, true, $context, true);
 
-                $your_price = ($specific_price_list[$key]!='')?$specific_price_list[$key]:$this->getYourPrice($id_cart, $id_prod, $id_attribute, $id_customer);
+                $your_price = ($specific_price_list[$key] != '') ? $specific_price_list[$key] : $this->getYourPrice($id_cart, $id_prod, $id_attribute, $id_customer);
 
-                $computed_id = $value.'_'.$id_attribute;
+                $computed_id = $value . '_' . $id_attribute;
 
                 $result[$i]['random_id'] = $key;
                 $result[$i]['product_id'] = $computed_id;
@@ -569,7 +570,7 @@ class AdminRepairsController extends ModuleAdminController{
         if (Tools::isSubmit('submitAddRepair')) {
 
 
-            $id_customer = (int) Tools::getValue('repair_customer_id');
+            $id_customer = (int)Tools::getValue('repair_customer_id');
             if ($id_customer == '') {
                 $this->errors[] = Tools::displayError($this->l('You have to choose a customer'));
             }
@@ -578,7 +579,7 @@ class AdminRepairsController extends ModuleAdminController{
             }
 
             //create repair
-            $id_cart = (int) Tools::getValue('idCart');
+            $id_cart = (int)Tools::getValue('idCart');
             $cart = Repair::createCart($id_cart);
 
             //p($cart);
@@ -619,7 +620,6 @@ class AdminRepairsController extends ModuleAdminController{
         }
 
 
-
         if (Tools::isSubmit('view' . $this->table)) {
             $id_repair = Tools::getValue('id_repair');
             $link = new Link;
@@ -649,13 +649,12 @@ class AdminRepairsController extends ModuleAdminController{
     private function getAllCartRules()
     {
         $sql = 'SELECT c.id_cart_rule, c.code, c.description, cl.name FROM ' . _DB_PREFIX_ . 'cart_rule c LEFT JOIN ' . _DB_PREFIX_ . 'cart_rule_lang';
-        $sql .= ' cl ON (c.id_cart_rule=cl.id_cart_rule) WHERE c.active=1 AND cl.id_lang='.(int)$this->context->language->id.' GROUP BY c.id_cart_rule ORDER BY c.id_cart_rule';
+        $sql .= ' cl ON (c.id_cart_rule=cl.id_cart_rule) WHERE c.active=1 AND cl.id_lang=' . (int)$this->context->language->id . ' GROUP BY c.id_cart_rule ORDER BY c.id_cart_rule';
 
         $rules = db::getInstance()->executeS($sql);
 
         return $rules;
     }
-
 
 
 }

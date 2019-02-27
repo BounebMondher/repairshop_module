@@ -23,15 +23,15 @@ class Repairshop extends Module
         $this->version = '1.0.0';
         $this->bootstrap = true;
         parent::__construct();
-        $this->displayName = $this->l('Repair shop');
-        $this->description =$this->l('Keep track of your repairs status, and keep your clients informed in real-time (back office & front office display)');
-        $this->ps_version_compliancy = array('min' => '1.6.0.0', 'max'=>'1.7.99.99');
+        $this->displayName = $this->l('Repair shop management');
+        $this->description = $this->l('Keep track of your repairs status, and keep your clients informed in real-time (back office & front office display)');
+        $this->ps_version_compliancy = array('min' => '1.6.0.0', 'max' => '1.7.99.99');
     }
 
     public function install()
     {
         $sql = array();
-        include(dirname(__FILE__).'/sql/install.php');
+        include(dirname(__FILE__) . '/sql/install.php');
         foreach ($sql as $s) {
             if (!Db::getInstance()->execute($s)) {
                 return false;
@@ -45,13 +45,13 @@ class Repairshop extends Module
         Configuration::updateValue('REPAIRSHOP_MAXPRODPAGE', 10);
         Configuration::updateValue('REPAIRSHOP_SHOWFREEFORM', 1);
         Configuration::updateValue('REPAIRSHOP_SHOWACCOUNTBTN', 1);
-        return parent::install() && $this->registerHook('displayNav2') && $this->registerHook('header') && $this->registerHook('displayBackOfficeFooter') && $this->createTabLink() ;
+        return parent::install() && $this->registerHook('displayNav2') && $this->registerHook('header') && $this->registerHook('displayBackOfficeFooter') && $this->createTabLink();
     }
 
     public function uninstall()
     {
         $sql = array();
-        include(dirname(__FILE__).'/sql/uninstall.php');
+        include(dirname(__FILE__) . '/sql/uninstall.php');
         foreach ($sql as $s) {
             if (!Db::getInstance()->execute($s)) {
                 return false;
@@ -63,51 +63,50 @@ class Repairshop extends Module
     public function hookDisplayNav2()
     {
 
-        return $this->display(__FILE__, 'views/templates/hook/nav.tpl') ;
+        return $this->display(__FILE__, 'views/templates/hook/nav.tpl');
     }
 
-    public function hookDisplayBackOfficeFooter(){
-        echo '<script type="text/javascript" src="'.(__PS_BASE_URI__).'modules/'.$this->name.'/views/js/icon.js"></script>';
+    public function hookDisplayBackOfficeFooter()
+    {
+        echo '<script type="text/javascript" src="' . (__PS_BASE_URI__) . 'modules/' . $this->name . '/views/js/icon.js"></script>';
     }
 
     public function hookHeader()
     {
         $this->context->controller->addCSS(array(
-            $this->_path.'views/css/repairshop.css'
+            $this->_path . 'views/css/repairshop.css'
         ));
         $this->context->controller->addJS(array(
-            $this->_path.'views/js/repairshop.js'
+            $this->_path . 'views/js/repairshop.js'
         ));
     }
 
     public function getContent()
     {
-        if(Tools::isSubmit('saversvalue'))
-        {
+        if (Tools::isSubmit('saversvalue')) {
             $rsvalue = Tools::getValue('rsvalue');
-            Configuration::updateValue('REPAIRSHOP_VALUE',$rsvalue);
+            Configuration::updateValue('REPAIRSHOP_VALUE', $rsvalue);
         }
 
         $this->context->smarty->assign(array(
             'REPAIRSHOP_VALUE' => Configuration::get('REPAIRSHOP_VALUE')
         ));
 
-        return $this->display(__FILE__, 'views/templates/admin/configure.tpl') ;
+        return $this->display(__FILE__, 'views/templates/admin/configure.tpl');
     }
 
     public function createTabLink()
     {
-        $tab=new Tab;
-        foreach(Language::getLanguages() as $lang)
-        {
+        $tab = new Tab;
+        foreach (Language::getLanguages() as $lang) {
             $tab->name[$lang['id_lang']] = $this->l('Repairs');
         }
         $tab->class_name = 'AdminRepairs';
         $tab->module = $this->name;
         if (_PS_VERSION_ >= '1.7')
-            $tab->id_parent =    (int)Tab::getIdFromClassName('SELL');
+            $tab->id_parent = (int)Tab::getIdFromClassName('SELL');
         else
-        $tab->id_parent = 0;
+            $tab->id_parent = 0;
         $tab->add();
         return true;
     }
