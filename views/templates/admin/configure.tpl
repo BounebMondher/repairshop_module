@@ -13,9 +13,16 @@
     </div>
     <form method="POST">
         <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="rsvalue">{l s='Automatically send repair pdf via email to client upon creation' mod='repairshop'}</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="checkbox" name="rsautosend" id="rsautosend" value="1" class="form-control" {if $REPAIRSHOP_AUTOSEND==1}checked{/if} "/>
+                </div>
+            </div>
 
-            <label for="rsvalue">{l s='config value' mod='repairshop'}</label>
-            <input type="text" name="rsvalue" id="rsvalue" class="form-control" value="{$REPAIRSHOP_VALUE}"/>
+
 
         </div>
         <div class="panel-footer">

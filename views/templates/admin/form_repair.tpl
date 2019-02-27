@@ -135,7 +135,7 @@
             <div style="clear:both; height:20px;"></div>
             <div class="col-lg-1"><span class="pull-right"></span></div>
             <label class="control-label col-lg-2" for="repair_product_autocomplete_input">
-                {l s='products in quotation:' mod='repairshop'}
+                {l s='products in repair:' mod='repairshop'}
             </label>
             <div class="col-lg-7">
                 <!--<div id="waitProductLoad">{l s='loading' mod='repairshop'}</div>-->
@@ -182,7 +182,7 @@
             <div style="clear:both; height:20px;"></div>
             <div class="col-lg-1"><span class="pull-right"></span></div>
             <label class="control-label col-lg-2" for="repair_product_autocomplete_input">
-                {l s='discount in quotation:' mod='repairshop'}
+                {l s='discount in repair:' mod='repairshop'}
             </label>
             <div class="col-lg-7">
                 <table class="table" id="repairCartRuleList">

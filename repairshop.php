@@ -83,13 +83,14 @@ class Repairshop extends Module
 
     public function getContent()
     {
-        if (Tools::isSubmit('saversvalue')) {
-            $rsvalue = Tools::getValue('rsvalue');
-            Configuration::updateValue('REPAIRSHOP_VALUE', $rsvalue);
+        if (Tools::isSubmit('saversvalue'))
+        {
+            $rsautosend = (int) Tools::getValue('rsautosend');
+            Configuration::updateValue('REPAIRSHOP_AUTOSEND', $rsautosend);
         }
 
         $this->context->smarty->assign(array(
-            'REPAIRSHOP_VALUE' => Configuration::get('REPAIRSHOP_VALUE')
+            'REPAIRSHOP_AUTOSEND' => Configuration::get('REPAIRSHOP_AUTOSEND')
         ));
 
         return $this->display(__FILE__, 'views/templates/admin/configure.tpl');
