@@ -51,13 +51,8 @@ class RepairshopClientrepairsModuleFrontController extends ModuleFrontController
         }
 
 
-        //echo "<pre>";print_r($my_repairs);exit();
-        if (isset($this->context->cookie->success))
-            $sss = $this->context->cookie->success;
-        else
-            $sss = "nope, still fucked up";
 
-        $this->context->smarty->assign(array("my_repairs" => $my_repairs, "success" => $sss));
+        $this->context->smarty->assign(array("my_repairs" => $my_repairs));
 
 
         if (_PS_VERSION_ >= '1.7') {
