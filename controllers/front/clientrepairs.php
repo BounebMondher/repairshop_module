@@ -52,7 +52,10 @@ class RepairshopClientrepairsModuleFrontController extends ModuleFrontController
 
 
 
-        $this->context->smarty->assign(array("my_repairs" => $my_repairs));
+        $this->context->smarty->assign(array(
+            "my_repairs" => $my_repairs,
+            "nb_repairs" => count($my_repairs)
+        ));
 
 
         if (_PS_VERSION_ >= '1.7') {

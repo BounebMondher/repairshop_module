@@ -21,6 +21,14 @@
                     <input type="checkbox" name="rsautosend" id="rsautosend" value="1" class="form-control" {if $REPAIRSHOP_AUTOSEND==1}checked{/if} "/>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="rsvalue">{l s='Show "My repairs" page link in the front office ' mod='repairshop'}</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="checkbox" name="rsshowfront" id="rsshowfront" value="1" class="form-control" {if $REPAIRSHOP_SHOWFRONT==1}checked{/if} "/>
+                </div>
+            </div>
 
 
 

@@ -62,7 +62,7 @@ class Repairshop extends Module
 
     public function hookDisplayNav2()
     {
-
+        if(Configuration::get('REPAIRSHOP_SHOWFRONT')==1)
         return $this->display(__FILE__, 'views/templates/hook/nav.tpl');
     }
 
@@ -87,10 +87,13 @@ class Repairshop extends Module
         {
             $rsautosend = (int) Tools::getValue('rsautosend');
             Configuration::updateValue('REPAIRSHOP_AUTOSEND', $rsautosend);
+            $rsshowfront = (int) Tools::getValue('rsshowfront');
+            Configuration::updateValue('REPAIRSHOP_SHOWFRONT', $rsshowfront);
         }
 
         $this->context->smarty->assign(array(
-            'REPAIRSHOP_AUTOSEND' => Configuration::get('REPAIRSHOP_AUTOSEND')
+            'REPAIRSHOP_AUTOSEND' => Configuration::get('REPAIRSHOP_AUTOSEND'),
+            'REPAIRSHOP_SHOWFRONT' => Configuration::get('REPAIRSHOP_SHOWFRONT')
         ));
 
         return $this->display(__FILE__, 'views/templates/admin/configure.tpl');

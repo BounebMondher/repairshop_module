@@ -30,6 +30,7 @@
 
     <section id="wrapper">
         <div class="container" style="min-height:300px!important;">
+            {if $nb_repairs>0}
             <table class="table">
                 <thead>
                 <tr>
@@ -60,6 +61,12 @@
 
                 </tbody>
             </table>
+            {/if}
+            {if $nb_repairs==0}
+                <div class="alert alert-warning" role="alert">
+                    {l s="You don't have any repairs, if you think there's a mistake, please feel free to contact us" mod='repairshop'}
+                </div>
+            {/if}
 
         </div>
     </section>
