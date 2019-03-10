@@ -7,6 +7,7 @@
  * @copyright Mondher Bouneb
  * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
  **}
+
 <div class="panel">
     <div class="panel-heading">
         {l s='Configuration' mod='repairshop'}
@@ -18,7 +19,8 @@
                     <label for="rsvalue">{l s='Automatically send repair pdf via email to client upon creation' mod='repairshop'}</label>
                 </div>
                 <div class="col-md-2">
-                    <input type="checkbox" name="rsautosend" id="rsautosend" value="1" class="form-control" {if $REPAIRSHOP_AUTOSEND==1}checked{/if} "/>
+                    <input type="checkbox" name="rsautosend" id="rsautosend" value="1" class="form-control"
+                           {if $REPAIRSHOP_AUTOSEND==1}checked{/if} "/>
                 </div>
             </div>
             <div class="row">
@@ -26,10 +28,10 @@
                     <label for="rsvalue">{l s='Show "My repairs" page link in the front office ' mod='repairshop'}</label>
                 </div>
                 <div class="col-md-2">
-                    <input type="checkbox" name="rsshowfront" id="rsshowfront" value="1" class="form-control" {if $REPAIRSHOP_SHOWFRONT==1}checked{/if} "/>
+                    <input type="checkbox" name="rsshowfront" id="rsshowfront" value="1" class="form-control"
+                           {if $REPAIRSHOP_SHOWFRONT==1}checked{/if} "/>
                 </div>
             </div>
-
 
 
         </div>

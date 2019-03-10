@@ -7,6 +7,7 @@
  * @copyright Mondher Bouneb
  * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
  **}
+
 <script type="text/javascript">
     var id_lang_default = {$id_lang_default|escape:'htmlall':'UTF-8'};
     var repairshop_module_dir = "{$ps_base_url|escape:'htmlall':'UTF-8'}{$repairshop_module_dir|escape:'htmlall':'UTF-8'}";

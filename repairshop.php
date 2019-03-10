@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Module repairshop
  *
@@ -9,6 +8,7 @@
  * @category Prestashop
  * @category Module
  */
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -44,7 +44,7 @@ class Repairshop extends Module
         Configuration::updateValue('REPAIRSHOP_MAXPRODPAGE', 10);
         Configuration::updateValue('REPAIRSHOP_SHOWFREEFORM', 1);
         Configuration::updateValue('REPAIRSHOP_SHOWACCOUNTBTN', 1);
-        $hookName = (version_compare(_PS_VERSION_, '1.7.0', '>='))?'displayNav2':'displayNav';
+        $hookName = (version_compare(_PS_VERSION_, '1.7.0', '>=')) ? 'displayNav2' : 'displayNav';
         return parent::install() && $this->registerHook($hookName) && $this->registerHook('header') && $this->registerHook('displayBackOfficeFooter') && $this->createTabLink();
     }
 
@@ -62,7 +62,7 @@ class Repairshop extends Module
 
     public function hookDisplayNav2()
     {
-        if (Configuration::get('REPAIRSHOP_SHOWFRONT')==1) {
+        if (Configuration::get('REPAIRSHOP_SHOWFRONT') == 1) {
             return $this->display(__FILE__, 'views/templates/hook/nav17.tpl');
         }
     }
@@ -81,9 +81,10 @@ class Repairshop extends Module
             $this->_path . 'views/js/repairshop.js'
         ));
     }
+
     public function hookDisplayNav()
     {
-        if (Configuration::get('REPAIRSHOP_SHOWFRONT')==1) {
+        if (Configuration::get('REPAIRSHOP_SHOWFRONT') == 1) {
             return $this->display(__FILE__, 'views/templates/hook/nav16.tpl');
         }
     }
@@ -91,9 +92,9 @@ class Repairshop extends Module
     public function getContent()
     {
         if (Tools::isSubmit('saversvalue')) {
-            $rsautosend = (int) Tools::getValue('rsautosend');
+            $rsautosend = (int)Tools::getValue('rsautosend');
             Configuration::updateValue('REPAIRSHOP_AUTOSEND', $rsautosend);
-            $rsshowfront = (int) Tools::getValue('rsshowfront');
+            $rsshowfront = (int)Tools::getValue('rsshowfront');
             Configuration::updateValue('REPAIRSHOP_SHOWFRONT', $rsshowfront);
         }
 

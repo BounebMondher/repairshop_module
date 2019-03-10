@@ -7,13 +7,14 @@
  * @copyright Mondher Bouneb
  * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
  **}
+
 {*<!doctype html>*}
 {*<html lang="{$language.iso_code}">*}
 
 {*<head>*}
-    {*{block name='head'}*}
-        {*{include file=$headerr}*}
-    {*{/block}*}
+{*{block name='head'}*}
+{*{include file=$headerr}*}
+{*{/block}*}
 {*</head>*}
 
 {*<body id="{$page.page_name}" class="{$page.body_classes|classnames}">*}
@@ -22,15 +23,15 @@
 
 {*<main>*}
 
-    {*<header id="header">*}
-        {*{block name='header'}*}
-            {*{include file='_partials/header.tpl'}*}
-        {*{/block}*}
-    {*</header>*}
+{*<header id="header">*}
+{*{block name='header'}*}
+{*{include file='_partials/header.tpl'}*}
+{*{/block}*}
+{*</header>*}
 
-    <section id="wrapper">
-        <div class="container" style="min-height:300px!important;">
-            {if $nb_repairs>0}
+<section id="wrapper">
+    <div class="container" style="min-height:300px!important;">
+        {if $nb_repairs>0}
             <table class="table">
                 <thead>
                 <tr>
@@ -61,28 +62,28 @@
 
                 </tbody>
             </table>
-            {/if}
-            {if $nb_repairs==0}
-                <div class="alert alert-warning" role="alert">
-                    {l s="You don't have any repairs, if you think there's a mistake, please feel free to contact us" mod='repairshop'}
-                </div>
-            {/if}
+        {/if}
+        {if $nb_repairs==0}
+            <div class="alert alert-warning" role="alert">
+                {l s="You don't have any repairs, if you think there's a mistake, please feel free to contact us" mod='repairshop'}
+            </div>
+        {/if}
 
-        </div>
-    </section>
+    </div>
+</section>
 
-    {*<footer id="footer">*}
-        {*{block name="footer"}*}
-            {*{include file="_partials/footer.tpl"}*}
-        {*{/block}*}
-    {*</footer>*}
+{*<footer id="footer">*}
+{*{block name="footer"}*}
+{*{include file="_partials/footer.tpl"}*}
+{*{/block}*}
+{*</footer>*}
 
 {*</main>*}
 
 {*{hook h='displayBeforeBodyClosingTag'}*}
 
 {*{block name='javascript_bottom'}*}
-    {*{include file="_partials/javascript.tpl" javascript=$javascript.bottom}*}
+{*{include file="_partials/javascript.tpl" javascript=$javascript.bottom}*}
 {*{/block}*}
 
 

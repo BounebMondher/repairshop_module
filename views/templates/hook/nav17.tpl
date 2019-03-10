@@ -7,6 +7,7 @@
  * @copyright Mondher Bouneb
  * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
  **}
+
 <div id="_desktop_user_info">
     <div class="user-info">
         <a href="module/repairshop/clientrepairs" target="_blank">

@@ -25,6 +25,7 @@ class RepairshopClientrepairsModuleFrontController extends ModuleFrontController
     {
         parent::init();
     }
+
     protected function l($string, $specific = false, $class = null, $addslashes = false, $htmlentities = true)
     {
         return Translate::getModuleTranslation('repairshop', $string, 'clientrepairs');
@@ -59,9 +60,8 @@ class RepairshopClientrepairsModuleFrontController extends ModuleFrontController
         $this->context->smarty->assign(array(
             "my_repairs" => $my_repairs,
             "nb_repairs" => count($my_repairs),
-            "headerr"=>_PS_THEME_DIR_.'_partials/head.tpl'
+            "headerr" => _PS_THEME_DIR_ . '_partials/head.tpl'
         ));
-
 
 
         if (_PS_VERSION_ >= '1.7') {

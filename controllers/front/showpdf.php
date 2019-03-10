@@ -8,6 +8,7 @@
  * @category Prestashop
  * @category Module
  */
+
 require_once _PS_MODULE_DIR_ . 'repairshop/models/repair.php';
 
 class RepairShopShowPdfModuleFrontController extends ModuleFrontController
@@ -27,9 +28,9 @@ class RepairShopShowPdfModuleFrontController extends ModuleFrontController
             }
 
             if ($new_repair->sendMailToCustommer($this->context) == true) {
-                $text = '<span style="color:green">'.$this->l("Mail to customer has been sent successfully").'</a>';
+                $text = '<span style="color:green">' . $this->l("Mail to customer has been sent successfully") . '</a>';
             } else {
-                $text = '<span style="color:red">'.$this->l("An error occurred during sending mail").'</a>';
+                $text = '<span style="color:red">' . $this->l("An error occurred during sending mail") . '</a>';
             }
 
             $text .= '<br /><a href="#" onClick="history.back(-1); return false;">back to repair list</a>';
