@@ -401,7 +401,6 @@ class Repair extends ObjectModel {
         $this->smarty->assign('repair_number', $this->id_repair);
 
         $pdf = new PDF($this, 'RepairPdf', $this->smarty);
-
         if ($render == false) {
             return $pdf->render(false);
         } else {

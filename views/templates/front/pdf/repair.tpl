@@ -22,7 +22,7 @@
                 <th>{l s='Device name' mod='repairshop'}</th>
             </tr>
             <tr>
-                <td>{html_entity_decode($repair_object->device|escape:'htmlall':'UTF-8')}</td>{* HTML needed can't escape *}
+                <td>{html_entity_decode($repair_object->device|escape:'htmlall':'UTF-8')}</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -30,7 +30,7 @@
         </table>
     {/if}
 
-    <table id="cart_summary" width="100%" style="text-align:left;" cellpadding="3">
+    <table  id="cart_summary" width="100%" style="text-align:left;" cellpadding="3">
         <thead>
         {assign var='odd' value=0}
         <tr style="color:#FFFFFF; background-color: #4D4D4D;">
@@ -53,7 +53,7 @@
             {assign var='quantityDisplayed' value=0}
             {assign var='odd' value=($odd+1)%2}
             {assign var='ignoreProductLast' value=isset($customizedDatas.$productId.$productAttributeId) || count($gift_products)}
-            {* Display the product line *}
+             Display the product line
 
             {if $firstpage=="true"}
                 {assign "modulo" $maxProdFirstPage}
@@ -68,7 +68,7 @@
             {assign "compteur" $compteur+1}
 
             {include file="$pdf_shopping_cart_dir" productLast=$product@last productFirst=$product@first cannotModify=1}
-            {* Then the customized datas ones*}
+
             {if isset($customizedDatas.$productId.$productAttributeId)}
                 {foreach $customizedDatas.$productId.$productAttributeId[$product.id_address_delivery] as $id_customization=>$customization}
                     <tr id="product_{$product.id_product|escape:'htmlall':'UTF-8'}_{$product.id_product_attribute|escape:'htmlall':'UTF-8'}_{$id_customization|escape:'htmlall':'UTF-8'}_{$product.id_address_delivery|intval}">
@@ -114,7 +114,7 @@
                     </tr>
                     {assign var='quantityDisplayed' value=$quantityDisplayed+$customization.quantity}
                 {/foreach}
-                {* If it exists also some uncustomized products *}
+                 If it exists also some uncustomized products
                 {if $product.quantity-$quantityDisplayed > 0}
                     {include file="$pdf_shopping_cart_dir" productLast=$product@last productFirst=$product@first cannotModify=1}
                 {/if}
@@ -128,7 +128,7 @@
             {assign var='odd' value=($product@iteration+$last_was_odd)%2}
             {assign var='ignoreProductLast' value=isset($customizedDatas.$productId.$productAttributeId)}
             {assign var='cannotModify' value=1}
-            {* Display the gift product line *}
+             Display the gift product line
             {include file="$pdf_shopping_cart_dir" productLast=$product@last productFirst=$product@first cannotModify=1}
         {/foreach}
         {if sizeof($discounts)}
@@ -197,7 +197,14 @@
                 ({if $priceDisplay == 1}{l s='tax excl.' mod='repairshop'}{else}{l s='tax incl.' mod='repairshop'}{/if})
             </td>
             <td colspan="1" style="text-align:right;">
-                <span id="total_price">{if $priceDisplay == 1}{displayPrice price=$total_shipping_tax_exc}{else}{displayPrice price=$total_shipping}{/if}</span>
+                <span id="total_price">
+                    {if $priceDisplay == 1}
+                        {displayPrice price=$total_shipping_tax_exc}
+                    {else}
+                        {displayPrice price=$total_shipping}
+
+                        {/if}
+                </span>
             </td>
         </tr>
         {if $use_taxes}
@@ -216,7 +223,9 @@
                     {l s='Total (tax incl.)' mod='repairshop'}
                 </td>
                 <td colspan="1" style="text-align:right;">
-                    <span id="total_price">{displayPrice price=$total_price}</span>
+                    <span id="total_price">
+                        {displayPrice price=$total_price}
+                    </span>
                 </td>
             </tr>
         {else}
@@ -225,7 +234,9 @@
                     {l s='Total (tax excl.)' mod='repairshop'}
                 </td>
                 <td colspan="1" style="text-align:right;">
-                    <span id="total_price">{displayPrice price=$total_price_without_tax}</span>
+                    <span id="total_price">
+                        {displayPrice price=$total_price_without_tax}
+                    </span>
                 </td>
             </tr>
             <tr>
@@ -233,7 +244,9 @@
                     {l s='Total' mod='repairshop'}
                 </td>
                 <td colspan="1" style="text-align:right;">
-                    <span id="total_price">{displayPrice price=$total_price_without_tax}</span>
+                    <span id="total_price">
+                        {displayPrice price=$total_price_without_tax}
+                    </span>
                 </td>
             </tr>
         {/if}
@@ -254,9 +267,15 @@
             {foreach $tax_details as $tax}
                 <tr>
                     <td></td>
-                    <td>{$tax.name|escape:'htmlall':'UTF-8'}</td>
-                    <td>{displayPrice price=$tax.total_ht}</td>
-                    <td>{displayPrice price=$tax.total_tax}</td>
+                    <td>
+                        {$tax.name|escape:'htmlall':'UTF-8'}
+                    </td>
+                    <td>
+                        {displayPrice price=$tax.total_ht}
+                    </td>
+                    <td>
+                        {displayPrice price=$tax.total_tax}
+                    </td>
                 </tr>
             {/foreach}
         </table>
@@ -271,7 +290,9 @@
                 <th>{l s='ADDITIONNAL INFORMATIONS' mod='repairshop'}</th>
             </tr>
             <tr>
-                <td>{html_entity_decode($message|escape:'htmlall':'UTF-8')}</td>{* HTML needed can't escape *}
+                <td>
+                    {html_entity_decode($message|escape:'htmlall':'UTF-8')}
+                </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

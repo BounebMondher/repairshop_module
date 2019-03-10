@@ -45,7 +45,8 @@ class Repairshop extends Module
         Configuration::updateValue('REPAIRSHOP_MAXPRODPAGE', 10);
         Configuration::updateValue('REPAIRSHOP_SHOWFREEFORM', 1);
         Configuration::updateValue('REPAIRSHOP_SHOWACCOUNTBTN', 1);
-        return parent::install() && $this->registerHook('displayNav2') && $this->registerHook('header') && $this->registerHook('displayBackOfficeFooter') && $this->createTabLink();
+        $hookName = (version_compare(_PS_VERSION_, '1.7.0', '>='))?'displayNav2':'displayNav';
+        return parent::install() && $this->registerHook($hookName) && $this->registerHook('header') && $this->registerHook('displayBackOfficeFooter') && $this->createTabLink();
     }
 
     public function uninstall()
@@ -63,7 +64,9 @@ class Repairshop extends Module
     public function hookDisplayNav2()
     {
         if(Configuration::get('REPAIRSHOP_SHOWFRONT')==1)
-        return $this->display(__FILE__, 'views/templates/hook/nav.tpl');
+        {
+            return $this->display(__FILE__, 'views/templates/hook/nav17.tpl');
+        }
     }
 
     public function hookDisplayBackOfficeFooter()
@@ -79,6 +82,14 @@ class Repairshop extends Module
         $this->context->controller->addJS(array(
             $this->_path . 'views/js/repairshop.js'
         ));
+    }
+    public function hookDisplayNav()
+    {
+
+        if(Configuration::get('REPAIRSHOP_SHOWFRONT')==1)
+        {
+            return $this->display(__FILE__, 'views/templates/hook/nav16.tpl');
+        }
     }
 
     public function getContent()
