@@ -1,0 +1,57 @@
+.trSpecificPrice {
+    text-align: right;
+}
+
+.table tbody > .trSpecificPrice > td {
+    padding: 3px 96px 3px 8px;
+    border-bottom: 1px solid #ccc !important;
+}
+
+.bootstrap .trSpecificPrice input,
+.trSpecificPrice input {
+    display: inline-block;
+    width: 50px;
+}
+
+.trSpecificPrice label {
+    display: inline-block;
+    margin: 0 10px;
+    float: none;
+    width: auto;
+}
+
+.table tbody > .line_1 td {
+    background: white;
+    border-bottom: none;
+}
+
+.table tbody > .line_1:hover td {
+    background: white;
+}
+
+.table tbody > .line_0 td {
+    background: #ddd;
+    border-bottom: none;
+}
+
+.table tbody > .line_0:hover td {
+    background: #ddd;
+}
+
+#waitProductLoad {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 3;
+    text-align: center;
+    font-size: 25px;
+}
+
+.tdAdminCustomizationDataValue {
+    padding-left: 85px !important;
+}
+
+.tdAdminCustomizationDataQty {
+    text-align: center;
+}
