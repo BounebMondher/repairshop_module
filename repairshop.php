@@ -20,7 +20,7 @@ class Repairshop extends Module
     {
         $this->name = 'repairshop';
         $this->author = 'Mondher Bouneb';
-        $this->version = '1.0.0';
+        $this->version = '1.5.0';
         $this->bootstrap = true;
         parent::__construct();
         $this->displayName = $this->l('Repair shop management');
