@@ -1,9 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Black Joker
- * Date: 11/11/2018
- * Time: 9:15 AM
+ * Module repairshop
+ *
+ * @author    Mondher Bouneb <bounebmondher@gmail.com>
+ * @copyright Mondher Bouneb
+ * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
+ * @category Prestashop
+ * @category Module
  */
 
 $sql = array();

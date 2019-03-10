@@ -3,13 +3,12 @@
 /**
  * Module repairshop
  *
- * @category Prestashop
- * @category Module
  * @author    Mondher Bouneb <bounebmondher@gmail.com>
  * @copyright Mondher Bouneb
  * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
+ * @category Prestashop
+ * @category Module
  */
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -63,8 +62,7 @@ class Repairshop extends Module
 
     public function hookDisplayNav2()
     {
-        if(Configuration::get('REPAIRSHOP_SHOWFRONT')==1)
-        {
+        if (Configuration::get('REPAIRSHOP_SHOWFRONT')==1) {
             return $this->display(__FILE__, 'views/templates/hook/nav17.tpl');
         }
     }
@@ -85,17 +83,14 @@ class Repairshop extends Module
     }
     public function hookDisplayNav()
     {
-
-        if(Configuration::get('REPAIRSHOP_SHOWFRONT')==1)
-        {
+        if (Configuration::get('REPAIRSHOP_SHOWFRONT')==1) {
             return $this->display(__FILE__, 'views/templates/hook/nav16.tpl');
         }
     }
 
     public function getContent()
     {
-        if (Tools::isSubmit('saversvalue'))
-        {
+        if (Tools::isSubmit('saversvalue')) {
             $rsautosend = (int) Tools::getValue('rsautosend');
             Configuration::updateValue('REPAIRSHOP_AUTOSEND', $rsautosend);
             $rsshowfront = (int) Tools::getValue('rsshowfront');
@@ -118,10 +113,11 @@ class Repairshop extends Module
         }
         $tab->class_name = 'AdminRepairs';
         $tab->module = $this->name;
-        if (_PS_VERSION_ >= '1.7')
+        if (_PS_VERSION_ >= '1.7') {
             $tab->id_parent = (int)Tab::getIdFromClassName('SELL');
-        else
+        } else {
             $tab->id_parent = 0;
+        }
         $tab->add();
         return true;
     }
@@ -134,5 +130,4 @@ class Repairshop extends Module
             return parent::l($string, $class, $addslashes, $htmlentities);
         }
     }
-
 }

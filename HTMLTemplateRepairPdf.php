@@ -1,17 +1,16 @@
 <?php
-
 /**
  * Module repairshop
  *
- * @category Prestashop
- * @category Module
  * @author    Mondher Bouneb <bounebmondher@gmail.com>
  * @copyright Mondher Bouneb
  * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
+ * @category Prestashop
+ * @category Module
  */
+
 class HTMLTemplateRepairPdf extends HTMLTemplate
 {
-
     public $cart_object;
     public $repair;
 
@@ -65,8 +64,9 @@ class HTMLTemplateRepairPdf extends HTMLTemplate
         $path_logo = $this->getLogo();
         $width = 0;
         $height = 0;
-        if (!empty($path_logo))
+        if (!empty($path_logo)) {
             list($width, $height) = getimagesize($path_logo);
+        }
 
         //Limit the height of the logo for the PDF render
         $maximum_height = 100;
@@ -133,12 +133,13 @@ class HTMLTemplateRepairPdf extends HTMLTemplate
         $logo = '';
         if (Configuration::get('PS_LOGO_INVOICE', null, null, (int)$this->cart_object->id_shop) != false &&
             file_exists(_PS_IMG_DIR_ . Configuration::get('PS_LOGO_INVOICE', null, null, (int)$this->cart_object->id_shop))
-        )
+        ) {
             $logo = _PS_IMG_DIR_ . Configuration::get('PS_LOGO_INVOICE', null, null, (int)$this->cart_object->id_shop);
-        elseif (Configuration::get('PS_LOGO', null, null, (int)$this->cart_object->id_shop) != false &&
+        } elseif (Configuration::get('PS_LOGO', null, null, (int)$this->cart_object->id_shop) != false &&
             file_exists(_PS_IMG_DIR_ . Configuration::get('PS_LOGO', null, null, (int)$this->cart_object->id_shop))
-        )
+        ) {
             $logo = _PS_IMG_DIR_ . Configuration::get('PS_LOGO', null, null, (int)$this->cart_object->id_shop);
+        }
         return $logo;
     }
 
@@ -147,5 +148,4 @@ class HTMLTemplateRepairPdf extends HTMLTemplate
     {
         return false;
     }
-
 }

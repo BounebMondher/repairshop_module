@@ -1,19 +1,20 @@
 <?php
 /**
-* Module repairshop
-*
- * @category Prestashop
-* @category Module
-* @author    Mondher Bouneb <bounebmondher@gmail.com>
+ * Module repairshop
+ *
+ * @author    Mondher Bouneb <bounebmondher@gmail.com>
  * @copyright Mondher Bouneb
-* @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
+ * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
+ * @category Prestashop
+ * @category Module
  */
 
 require_once _PS_MODULE_DIR_.'repairshop/HTMLTemplateRepairPdf.php';
 
 
 
-class Repair extends ObjectModel {
+class Repair extends ObjectModel
+{
     /* @var string Name */
 
     public $id_repair;
@@ -221,7 +222,7 @@ class Repair extends ObjectModel {
                 if (isset($specific_price_list[$random_id]) && $specific_price_list[$random_id] != '') {
                     $list_prod[$random_id]['specific_price'] = str_replace(',', '.', $specific_price_list[$random_id]);
                     $list_prod[$random_id]['specific_qty'] = $list_prod[$random_id]['qty'];
-                    //$list_prod[$random_id]['specific_qty'] = ($specific_qty_list[$random_id] == '') ? 1 : $specific_qty_list[$random_id];
+                //$list_prod[$random_id]['specific_qty'] = ($specific_qty_list[$random_id] == '') ? 1 : $specific_qty_list[$random_id];
                 } else {//si pas de prix specifique indique alors on enregistre le prix du produit en tant que prix specifique
                     $specific_price_output = null;
                     $price = Product::getPriceStatic($list_prod[$random_id]['id'], false, $list_prod[$random_id]['id_attribute'], 6, null, false, true, (int)$list_prod[$random_id]['qty'], false, $id_customer, 0, $cart->id_address_delivery, $specific_price_output, false, true, $context, true);
@@ -325,10 +326,8 @@ class Repair extends ObjectModel {
 
     public function sendMailToCustommer($context)
     {
-
-
         $configuration = Configuration::getMultiple(
-            [
+            array(
                 'PS_SHOP_EMAIL',
                 'PS_MAIL_METHOD',
                 'PS_MAIL_SERVER',
@@ -338,12 +337,12 @@ class Repair extends ObjectModel {
                 'PS_MAIL_SMTP_ENCRYPTION',
                 'PS_MAIL_SMTP_PORT',
                 'PS_MAIL_TYPE'
-            ],
+            ),
             null,
             null,
             (int)$this->context->shop->id
         );
-        try{
+        try {
             $transport = Swift_SmtpTransport::newInstance($configuration['PS_MAIL_SERVER'], $configuration['PS_MAIL_SMTP_PORT'], $configuration['PS_MAIL_SMTP_ENCRYPTION']);
             $transport->setUsername($configuration['PS_SHOP_EMAIL']);
             $transport->setPassword($configuration['PS_MAIL_PASSWD']);
@@ -364,9 +363,9 @@ class Repair extends ObjectModel {
         $file_attachement = array();
 
 
-            $file_attachement['content'] = $this->renderPDf($context->smarty, false);
-            $file_attachement['name'] = $filename;
-            $file_attachement['mime'] = 'application/pdf';
+        $file_attachement['content'] = $this->renderPDf($context->smarty, false);
+        $file_attachement['name'] = $filename;
+        $file_attachement['mime'] = 'application/pdf';
 
         //send mail to customer
         if (Mail::Send(
@@ -604,7 +603,8 @@ class Repair extends ObjectModel {
     private function setProductImageInformations($product_id, $product_attribute_id)
     {
         if (isset($product_attribute_id) && $product_attribute_id) {
-            $id_image = Db::getInstance()->getValue('
+            $id_image = Db::getInstance()->getValue(
+                '
                 SELECT image_shop.id_image
                 FROM '._DB_PREFIX_.'product_attribute_image pai'.
                 Shop::addSqlAssociation('image', 'pai', true).'
@@ -613,7 +613,8 @@ class Repair extends ObjectModel {
         }
 
         if (!isset($id_image) || !$id_image) {
-            $id_image = Db::getInstance()->getValue('
+            $id_image = Db::getInstance()->getValue(
+                '
                 SELECT image_shop.id_image
                 FROM '._DB_PREFIX_.'image i'.
                 Shop::addSqlAssociation('image', 'i', true, 'image_shop.cover=1').'
@@ -660,7 +661,7 @@ class Repair extends ObjectModel {
         $customer_obj = new Customer($this->id_customer);
 
 
-            $customer_message = '';
+        $customer_message = '';
 
 
         $data = array(
@@ -686,6 +687,4 @@ class Repair extends ObjectModel {
                 WHERE r.id_customer = '.$id_customer
         );
     }
-
-
 }

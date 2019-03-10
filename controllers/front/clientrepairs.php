@@ -2,11 +2,11 @@
 /**
  * Module repairshop
  *
- * @category Prestashop
- * @category Module
  * @author    Mondher Bouneb <bounebmondher@gmail.com>
  * @copyright Mondher Bouneb
  * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
+ * @category Prestashop
+ * @category Module
  */
 
 require_once _PS_MODULE_DIR_ . 'repairshop/models/repair.php';
@@ -36,7 +36,7 @@ class RepairshopClientrepairsModuleFrontController extends ModuleFrontController
 
 
         $my_repairs = Repair::get_client_repairs($this->context->cookie->id_customer);
-
+        $nameArray = array();
         $nameArray[1] = $this->l('waiting for repair');
         $nameArray[2] = $this->l('waiting for hardware');
         $nameArray[3] = $this->l('repair in progress');
@@ -74,7 +74,6 @@ class RepairshopClientrepairsModuleFrontController extends ModuleFrontController
     public function postProcess()
     {
         if (Tools::getValue('id_repair')) {
-
             $this->context->cookie->__set('success', "suckcess");
             $id_repair = Tools::getValue('id_repair');
             $link = new Link;
@@ -88,7 +87,6 @@ class RepairshopClientrepairsModuleFrontController extends ModuleFrontController
             );
 
             Tools::redirect($redirect_link);
-
         }
 
         if (Tools::isSubmit('sendbymail')) {

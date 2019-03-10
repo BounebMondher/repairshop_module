@@ -2,21 +2,19 @@
 /**
  * Module repairshop
  *
- * @category Prestashop
- * @category Module
  * @author    Mondher Bouneb <bounebmondher@gmail.com>
  * @copyright Mondher Bouneb
  * @license   Tous droits réservés / Le droit d'auteur s'applique (All rights reserved / French copyright law applies)
+ * @category Prestashop
+ * @category Module
  */
 
 require_once _PS_MODULE_DIR_ . 'repairshop/models/repair.php';
 
 class AdminRepairsController extends ModuleAdminController
 {
-
     public function __construct()
     {
-
         $this->ps_versions = array('min' => '1.7.1.0', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
         $this->table = 'repair';
@@ -162,6 +160,7 @@ class AdminRepairsController extends ModuleAdminController
 
         if (isset($products) && count($products) > 0) {
             foreach ($products as &$prod) {
+                $specific_price_output = $prod['specific_price'];
                 $row = $this->getYourPrice($obj->id_cart, $prod['id_product'], $prod['id_product_attribute'], $cart->id_customer, true);
                 $prod['your_price'] = $row['price'];
                 $prod['specific_qty'] = $row['from_quantity'];
@@ -229,7 +228,6 @@ class AdminRepairsController extends ModuleAdminController
 
     public function renderList()
     {
-
         $this->addRowAction('view');
         $this->addRowAction('edit');
         $this->addRowAction('viewcustomer');
@@ -282,6 +280,7 @@ class AdminRepairsController extends ModuleAdminController
 
     public function getStatutName($val)
     {
+        $nameArray = array();
         //1 waiting for repair, 2 waiting for hardware, 3 repair in progress , 4 repaired, 5 unrepairable, 6 returned to client
         $nameArray[1] = $this->l('waiting for repair');
         $nameArray[2] = $this->l('waiting for hardware');
@@ -380,8 +379,6 @@ class AdminRepairsController extends ModuleAdminController
 
     public function postProcess()
     {
-
-
         if (Tools::getIsset('ajax_customer_list')) {
             $query = Tools::getValue('q', false);
             $context = Context::getContext();
@@ -410,6 +407,7 @@ class AdminRepairsController extends ModuleAdminController
 
             $context = Context::getContext();
             foreach ($prod_list as $prod) {
+                $specific_price_output = $prod['specific_price'];
                 $prod['name'] = $prod['name'] . ' [' . $prod['reference'] . ']';
                 //$price = Product::getPriceStatic($prod['id_product'], false, null, 6, null, false, true, 1, false, $id_customer, null, null, $specific_price_output, true, true, $context, true);
 
@@ -466,7 +464,7 @@ class AdminRepairsController extends ModuleAdminController
             $summary = $cart->getSummaryDetails(null, true);
             $summary['id_cart'] = $cart->id;
             $summary["group_tax_method"] = false;
-            $customer = New Customer($cart->id_customer);
+            $customer = new Customer($cart->id_customer);
 
             if (function_exists('getPriceDisplayMethod')) {
                 $summary["group_tax_method"] = (bool)Group::getPriceDisplayMethod($customer->id_default_group);
@@ -537,7 +535,7 @@ class AdminRepairsController extends ModuleAdminController
                 $id_prod = $value;
                 $id_attribute = (isset($attribute_list[$key])) ? $attribute_list[$key] : 0;
                 $qty = $qty_list[$key];
-
+                $specific_price_output = Tools::getValue('specific_price');
                 $price = Product::getPriceStatic($id_prod, false, $id_attribute, 2, null, false, true, 1, false, null, null, null, $specific_price_output, false, false, null, false);
 
                 $reduced_price = Product::getPriceStatic($id_prod, false, $id_attribute, 2, null, false, true, $qty, false, $id_customer, null, 0, $specific_price_output, false, true, $context, true);
@@ -558,18 +556,13 @@ class AdminRepairsController extends ModuleAdminController
             echo tools::jsonEncode($result);
             die();
         }
-
         if (Tools::getIsset('transformThisCartId')) {
             $cart = new Cart(Tools::getValue('transformThisCartId'));
             $customer = new Customer($cart->id_customer);
             $new_repair = Repair::createRepair($cart, $customer);
-
             Tools::redirectAdmin(self::$currentIndex . '&id_repair=' . $new_repair->id . '&updaterepair&token=' . $this->token);
         }
-
         if (Tools::isSubmit('submitAddRepair')) {
-
-
             $id_customer = (int)Tools::getValue('repair_customer_id');
             if ($id_customer == '') {
                 $this->errors[] = Tools::displayError($this->l('You have to choose a customer'));
@@ -577,16 +570,12 @@ class AdminRepairsController extends ModuleAdminController
             if (count($this->errors) > 0) {
                 return;
             }
-
             //create repair
             $id_cart = (int)Tools::getValue('idCart');
             $cart = Repair::createCart($id_cart);
-
             //p($cart);
-
             $customer = new Customer($id_customer);
             $id_repair = Tools::getValue('id_repair');
-
             $new_repair = Repair::createRepair(
                 $cart,
                 $customer,
@@ -598,8 +587,6 @@ class AdminRepairsController extends ModuleAdminController
                 null,
                 false
             );
-
-
             Tools::redirectAdmin(self::$currentIndex . '&token=' . $this->token);
         }
 
@@ -640,7 +627,6 @@ class AdminRepairsController extends ModuleAdminController
             $repair = new Repair($id_repair);
             //p($repair);
             $repair->validate();
-
         }
 
         return parent::postProcess();
@@ -655,6 +641,4 @@ class AdminRepairsController extends ModuleAdminController
 
         return $rules;
     }
-
-
 }
