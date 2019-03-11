@@ -53,7 +53,7 @@
             {assign var='quantityDisplayed' value=0}
             {assign var='odd' value=($odd+1)%2}
             {assign var='ignoreProductLast' value=isset($customizedDatas.$productId.$productAttributeId) || count($gift_products)}
-             Display the product line
+             {*Display the product line*}
 
             {if $firstpage=="true"}
                 {assign "modulo" $maxProdFirstPage}
@@ -128,7 +128,7 @@
             {assign var='odd' value=($product@iteration+$last_was_odd)%2}
             {assign var='ignoreProductLast' value=isset($customizedDatas.$productId.$productAttributeId)}
             {assign var='cannotModify' value=1}
-             Display the gift product line
+             {*Display the gift product line*}
             {include file="$pdf_shopping_cart_dir" productLast=$product@last productFirst=$product@first cannotModify=1}
         {/foreach}
         {if sizeof($discounts)}

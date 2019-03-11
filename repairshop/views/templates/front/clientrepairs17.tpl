@@ -9,7 +9,7 @@
  **}
 
 <!doctype html>
-<html lang="{$language.iso_code|escape:'htmlall':'UTF-8'}}">
+<html lang="{$language.iso_code|escape:'htmlall':'UTF-8'}">
 
 <head>
     {block name='head'}
@@ -48,14 +48,14 @@
                     <tbody>
                     {foreach $my_repairs as $my_repair}
                         <tr>
-                            <th scope="row">{$my_repair['id_repair']|escape:'htmlall':'UTF-8'}}</th>
-                            <td>{$my_repair['name']|escape:'htmlall':'UTF-8'}}</td>
-                            <td>{$my_repair['customer']|escape:'htmlall':'UTF-8'}}</td>
-                            <td>{$my_repair['device']|escape:'htmlall':'UTF-8'}}</td>
-                            <td>{$my_repair['date_add']|escape:'htmlall':'UTF-8'}}</td>
-                            <td>{$my_repair['total']|escape:'htmlall':'UTF-8'}}</td>
-                            <td>{$my_repair['statut']|escape:'htmlall':'UTF-8'}}</td>
-                            <td><a href="{$my_repair['view']|escape:'htmlall':'UTF-8'}}" class="btn btn-success">{l s='View' mod='repairshop'}</a>
+                            <th scope="row">{$my_repair['id_repair']|escape:'htmlall':'UTF-8'}</th>
+                            <td>{$my_repair['name']|escape:'htmlall':'UTF-8'}</td>
+                            <td>{$my_repair['customer']|escape:'htmlall':'UTF-8'}</td>
+                            <td>{$my_repair['device']|escape:'htmlall':'UTF-8'}</td>
+                            <td>{$my_repair['date_add']|escape:'htmlall':'UTF-8'}</td>
+                            <td>{$my_repair['total']|escape:'htmlall':'UTF-8'}</td>
+                            <td>{$my_repair['statut']|escape:'htmlall':'UTF-8'}</td>
+                            <td><a href="{$my_repair['view']|escape:'htmlall':'UTF-8'}" class="btn btn-success">{l s='View' mod='repairshop'}</a>
                             </td>
                         </tr>
                     {/foreach}
